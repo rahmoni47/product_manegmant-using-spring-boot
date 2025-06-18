@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import com.product_managmanent.Model.ProductDTO;
 import com.product_managmanent.Model.Product;
 import com.product_managmanent.Model.UpdateProd;
-
+import com.product_managmanent.enums.RuntimeErrors;
+import com.product_managmanent.exceptions.ErrorClass;
 import com.product_managmanent.repository.ProductRepo;
 @Service
 public class UpdateProduct implements Query<UpdateProd,ProductDTO>{
@@ -28,6 +29,6 @@ public class UpdateProduct implements Query<UpdateProd,ProductDTO>{
             ProductDTO dto = new ProductDTO(product.getProd_name(),product.getProd_price()) ; 
             return ResponseEntity.status(HttpStatus.OK).body(dto) ; 
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ErrorClass(RuntimeErrors.NOT_FOUND,HttpStatus.NOT_FOUND) ; 
     }
 }

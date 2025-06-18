@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import com.product_managmanent.Model.Product;
 import com.product_managmanent.Model.ProductDTO;
+import com.product_managmanent.enums.RuntimeErrors;
+import com.product_managmanent.exceptions.ErrorClass;
 import com.product_managmanent.repository.ProductRepo;
 
 import jakarta.websocket.server.ServerEndpoint;
@@ -21,6 +23,6 @@ public class DeleteProduct implements Query<Integer,Void>{
             repo.deleteById(id); ; 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build() ; 
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ErrorClass(RuntimeErrors.NOT_FOUND,HttpStatus.NOT_FOUND); 
     }
 }
